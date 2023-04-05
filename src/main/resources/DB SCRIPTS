@@ -1,0 +1,87 @@
+Tool
+---------------
+create User
+---------------------------------------
+CREATE TABLE `issue_tracker`.`user` (
+  `id` BIGINT(50) NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(300) NOT NULL,
+  `mobile` BIGINT(50) NOT NULL,
+  `email` VARCHAR(300) NOT NULL,
+  `password` VARCHAR(500) NOT NULL,
+  `address` VARCHAR(500) NOT NULL,
+  `created_on` DATE NOT NULL,
+  `created_by` VARCHAR(300) NOT NULL,
+  `modified_on` DATE NULL,
+  `modified_by` VARCHAR(300) NULL,
+  `active` TINYINT NOT NULL,
+  PRIMARY KEY (`id`));
+  
+  ------------------------------------------------------------------------------------------------
+  create department
+  -----------------------------------------------
+  CREATE TABLE `issue_tracker`.`department` (
+  `id` BIGINT(50) NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(300) NOT NULL,
+  `created_on` DATE NOT NULL,
+  `created_by` VARCHAR(300) NOT NULL,
+  `modified_on` DATE NOT NULL,
+  `modified_by` VARCHAR(300) NOT NULL,
+  `active` TINYINT NOT NULL,
+  PRIMARY KEY (`id`));
+  ----------------------------------------------------------------------------------------------
+  create role
+  ---------------------------------------------
+  CREATE TABLE `issue_tracker`.`role` (
+  `id` BIGINT(50) NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(300) NOT NULL,
+  `created_on` DATE NOT NULL,
+  `created_by` VARCHAR(300) NOT NULL,
+  `modified_on` DATE  NULL,
+  `modified_by` VARCHAR(300)  NULL,
+  `active` TINYINT NOT NULL,
+  PRIMARY KEY (`id`));
+  ---------------------------------------------------------------------------------------------------
+  create user_department
+  -------------------------------------------
+  CREATE TABLE `issue_tracker`.`user_department` (
+  `id` BIGINT(50) NOT NULL AUTO_INCREMENT,
+  `user_id` BIGINT(50) NOT NULL,
+  `department_id` BIGINT(50) NOT NULL,
+  `role_id` BIGINT(50) NOT NULL,
+  `created_on` DATE NOT NULL,
+  `created_by` VARCHAR(300) NOT NULL,
+  `modified_on` DATE  NULL,
+  `modified_by` VARCHAR(300)  NULL,
+  `active` TINYINT NOT NULL,
+  PRIMARY KEY (`id`),
+    FOREIGN KEY (`user_id`)
+    REFERENCES `issue_tracker`.`user` (`id`)
+  ,
+    FOREIGN KEY (`department_id`)
+    REFERENCES `issue_tracker`.`department` (`id`)
+   ,
+    FOREIGN KEY (`role_id`)
+    REFERENCES `issue_tracker`.`role` (`id`)
+   );
+
+----------------------------------------------------------------------------------------------------
+create issue_tracker
+---------------------------------------------------
+CREATE TABLE `issue_tracker`.`issue` (
+  `id` BIGINT(50) NOT NULL AUTO_INCREMENT,
+  `user_id` BIGINT(50) NOT NULL,
+  `department_id` BIGINT(50) NOT NULL,
+  `created_on` DATE NOT NULL,
+  `created_by` VARCHAR(300) NOT NULL,
+  `modified_on` DATE  NULL,
+  `modified_by` VARCHAR(300)  NULL,
+  `issue` LONGTEXT NOT NULL,
+  `status` VARCHAR(300) NOT NULL,
+  `active` INT NOT NULL,
+  PRIMARY KEY (`id`),
+    FOREIGN KEY (`user_id`)
+    REFERENCES `issue_tracker`.`user` (`id`),
+    FOREIGN KEY (`department_id`)
+    REFERENCES `issue_tracker`.`department` (`id`)
+  );
+-------------------------------------------------------------------------------------------------------------------
